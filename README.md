@@ -29,11 +29,11 @@ A FastAPI-based microservice for detecting duplicate (similar) content in the WL
 git clone https://github.com/openeduhub/duplicate-detection.git
 cd duplicate-detection
 
-# Install dependencies
-pip install -r requirements.txt
+# Install dependencies with uv
+uv sync
 
 # Run the service
-python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at `http://localhost:8000`
@@ -92,7 +92,7 @@ export MAX_CANDIDATES="40"
 export DETECTION_CACHE_TTL="3600"
 export DETECTION_CACHE_MAX_SIZE="1000"
 
-python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
 ### Caching Configuration
@@ -186,7 +186,7 @@ duplicate-detection/
 │   └── hash_detector.py     # Hash-based duplicate detection logic
 ├── Dockerfile               # Docker image definition
 ├── docker-compose.yml       # Docker Compose configuration
-├── requirements.txt         # Python dependencies
+├── .env.example             # Environment variable template
 ├── README.md               # This file
 ├── API.md                  # Detailed API documentation
 └── DEPLOYMENT.md           # Deployment and operations guide
@@ -197,11 +197,11 @@ duplicate-detection/
 ### Running Tests
 
 ```bash
-# Install test dependencies
-pip install pytest pytest-asyncio
+# Install test dependencies with uv
+uv sync --extra dev
 
 # Run tests
-pytest
+uv run pytest
 ```
 
 ### Code Style
@@ -209,14 +209,14 @@ pytest
 The project follows PEP 8 style guidelines. Use a linter to check code quality:
 
 ```bash
-# Install linting tools
-pip install flake8 black
+# Install linting tools with uv
+uv sync --extra dev
 
 # Check code style
-flake8 app/
+uv run flake8 app/
 
 # Format code
-black app/
+uv run black app/
 ```
 
 ## Performance Characteristics
@@ -246,7 +246,7 @@ black app/
 lsof -i :8000
 
 # Use a different port
-python -m uvicorn app.main:app --port 8001
+uv run uvicorn app.main:app --port 8001
 ```
 
 ### WLO connection errors
